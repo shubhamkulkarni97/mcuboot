@@ -17,15 +17,8 @@
 
 MCUBOOT_LOG_MODULE_DECLARE(mcuboot);
 
-#if (!defined(CONFIG_XTENSA) && defined(DT_CHOSEN_ZEPHYR_FLASH_CONTROLLER_LABEL))
-#define FLASH_DEVICE_ID SOC_FLASH_0_ID
-#define FLASH_DEVICE_BASE CONFIG_FLASH_BASE_ADDRESS
-#elif (defined(CONFIG_XTENSA) && defined(DT_JEDEC_SPI_NOR_0_LABEL))
 #define FLASH_DEVICE_ID SPI_FLASH_0_ID
 #define FLASH_DEVICE_BASE 0
-#else
-#error "FLASH_DEVICE_ID could not be determined"
-#endif
 
 static const struct device *flash_dev;
 

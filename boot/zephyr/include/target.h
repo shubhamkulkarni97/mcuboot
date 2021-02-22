@@ -34,7 +34,6 @@
  * Sanity check the target support.
  */
 #if (!defined(CONFIG_XTENSA) && !defined(DT_CHOSEN_ZEPHYR_FLASH_CONTROLLER_LABEL)) || \
-    (defined(CONFIG_XTENSA) && !defined(JEDEC_SPI_NOR_0_LABEL)) || \
     !defined(FLASH_ALIGN) ||                  \
     !(FLASH_AREA_LABEL_EXISTS(image_0)) || \
     !(FLASH_AREA_LABEL_EXISTS(image_1) || CONFIG_SINGLE_APPLICATION_SLOT) || \
