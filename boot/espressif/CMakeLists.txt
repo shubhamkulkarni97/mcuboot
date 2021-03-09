@@ -30,12 +30,12 @@ set(APP_EXECUTABLE ${APP_NAME}.elf)
 set(MCUBOOT_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR}/../..)
 set(BOOTUTIL_DIR ${MCUBOOT_ROOT_DIR}/boot/bootutil)
 set(MBEDTLS_DIR ${MCUBOOT_ROOT_DIR}/ext/mbedtls)
+set(CONFIG_SINGLE_APPLICATION_SLOT 1)
 
 set(bootutil_srcs
     ${BOOTUTIL_DIR}/src/boot_record.c
     ${BOOTUTIL_DIR}/src/bootutil_misc.c
     ${BOOTUTIL_DIR}/src/bootutil_public.c
-    ${BOOTUTIL_DIR}/src/caps.c
     ${BOOTUTIL_DIR}/src/encrypted.c
     ${BOOTUTIL_DIR}/src/fault_injection_hardening.c
     ${BOOTUTIL_DIR}/src/fault_injection_hardening_delay_rng_mbedtls.c
@@ -44,12 +44,30 @@ set(bootutil_srcs
     ${BOOTUTIL_DIR}/src/image_ed25519.c
     ${BOOTUTIL_DIR}/src/image_rsa.c
     ${BOOTUTIL_DIR}/src/image_validate.c
-    ${BOOTUTIL_DIR}/src/loader.c
-    ${BOOTUTIL_DIR}/src/swap_misc.c
-    ${BOOTUTIL_DIR}/src/swap_move.c
-    ${BOOTUTIL_DIR}/src/swap_scratch.c
     ${BOOTUTIL_DIR}/src/tlv.c
     )
+
+set(bootutil_includes
+    ${BOOTUTIL_DIR}/include
+    )
+
+if (NOT CONFIG_SINGLE_APPLICATION_SLOT)
+    list(APPEND bootutil_srcs
+        ${BOOTUTIL_DIR}/src/caps.c
+        ${BOOTUTIL_DIR}/src/loader.c
+        ${BOOTUTIL_DIR}/src/swap_misc.c
+        ${BOOTUTIL_DIR}/src/swap_move.c
+        ${BOOTUTIL_DIR}/src/swap_scratch.c
+        )
+else()
+    list(APPEND bootutil_srcs
+        ${CMAKE_CURRENT_LIST_DIR}/single_loader.c
+        )
+    list(APPEND bootutil_includes
+        ${BOOTUTIL_DIR}/src
+        )
+endif()
+
 
 set(mbedtls_srcs
     ${MBEDTLS_DIR}/crypto/library/sha256.c
@@ -129,7 +147,7 @@ target_sources(
 target_include_directories(
     ${APP_EXECUTABLE}
     PUBLIC
-    ${BOOTUTIL_DIR}/include
+    ${bootutil_includes}
     ${MBEDTLS_DIR}/crypto/include
     ${CMAKE_CURRENT_LIST_DIR}/include
     )
