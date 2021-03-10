@@ -142,6 +142,7 @@ target_sources(
     ${bootutil_srcs}
     ${mbedtls_srcs}
     ${CMAKE_CURRENT_LIST_DIR}/port/esp_mcuboot.c
+    ${CMAKE_CURRENT_LIST_DIR}/port/esp_loader.c
     )
 
 target_include_directories(
