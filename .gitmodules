@@ -19,3 +19,7 @@
 [submodule "boot/boot_serial/src/cddl_gen"]
 	path = ext/cddl_gen
 	url = https://github.com/oyvindronningstad/cddl_gen.git
+[submodule "boot/espressif/hal/esp-idf"]
+	path = boot/espressif/hal/esp-idf
+	url = https://github.com/espressif/esp-idf.git
+	branch = release/v4.3
