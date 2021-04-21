@@ -33,7 +33,7 @@ set(hal_srcs
     ${SRC_DIR}/bootloader_flash_config_esp32.c
     ${SRC_DIR}/${MCUBOOT_TARGET}/rtc_init.c
     ${SRC_DIR}/${MCUBOOT_TARGET}/rtc_clk.c
-    ${SRC_DIR}/rtc_time.c
+    ${SRC_DIR}/${MCUBOOT_TARGET}/rtc_time.c
     ${esp_idf_dir}/components/hal/mpu_hal.c
     ${esp_idf_dir}/components/bootloader_support/src/bootloader_clock_init.c
     ${esp_idf_dir}/components/bootloader_support/src/bootloader_efuse_esp32.c
