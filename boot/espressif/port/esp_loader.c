@@ -8,6 +8,7 @@
 #include <soc/soc.h>
 #include <soc/dport_reg.h>
 #include <bootloader_flash.h>
+#include <bootloader_flash_priv.h>
 #include <bootloader_init.h>
 #include <esp_image_format.h>
 
