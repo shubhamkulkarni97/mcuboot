@@ -4,7 +4,8 @@
 
 MEMORY
 {
-    iram_seg (RWX) : org = 0x40098000, len = 0x8000
+    iram_loader_seg (RWX) : org = 0x4009D000, len = 0x3000
+    iram_seg (RWX) : org = 0x40085000, len = 0x6000
     dram_seg (RW) : org = 0x3FFF8000, len = 0x8000
 }
 
@@ -12,6 +13,21 @@ ENTRY(main)
 
 SECTIONS
 {
+    .iram_loader.text :
+    {
+        . = ALIGN (16);
+        _loader_text_start = ABSOLUTE(.);
+        *(.stub .gnu.warning .gnu.linkonce.literal.* .gnu.linkonce.t.*.literal .gnu.linkonce.t.*)
+        *(.iram1 .iram1.*) /* catch stray IRAM_ATTR */
+        *libhal.a:bootloader_flash.*(.literal .text .literal.* .text.*)
+        *libhal.a:bootloader_flash_config_esp32.*(.literal .text .literal.* .text.*)
+        *esp_mcuboot.*(.literal .text .literal.* .text.*)
+        *esp_loader.*(.literal .text .literal.* .text.*)
+        *(.fini.literal)
+        *(.fini)
+        *(.gnu.version)
+        _loader_text_end = ABSOLUTE(.);
+    } > iram_loader_seg
     
     .iram.text :
     {

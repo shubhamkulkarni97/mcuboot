@@ -116,4 +116,5 @@ target_link_libraries(
     -T${esp_idf_dir}/components/esp_rom/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.rom.libgcc.ld
     -T${esp_idf_dir}/components/esp_rom/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.rom.api.ld
     -T${esp_idf_dir}/components/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.peripherals.ld
+    -T${esp_idf_dir}/components/esp_rom/${MCUBOOT_TARGET}/ld/${MCUBOOT_TARGET}.rom.newlib-funcs.ld
     )
